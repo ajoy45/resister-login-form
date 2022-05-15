@@ -1,7 +1,7 @@
 
 import './App.css';
 import app from './firebase.init';
-import { createUserWithEmailAndPassword, getAuth, sendEmailVerification, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
 import { Form } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import { useState } from 'react';
@@ -37,6 +37,7 @@ function App() {
     }
     setError('')
   if(resistered){
+    
     signInWithEmailAndPassword(auth, email, password)
     .then(result=>{
       const user=result.user;
@@ -71,7 +72,13 @@ function App() {
       console.log('email sent')
     })
   }
+const resetPassword=()=>{
+  sendPasswordResetEmail(auth, email)
+  .then(()=>{
+    console.log("reset password email send")
+  })
 
+}
   return (
     <div >
       <div className='w-50 mx-auto mt-5 bg-success'>
@@ -91,6 +98,8 @@ function App() {
             <Form.Check className='text-white fs-4' onChange={handelResistered} type="checkbox" label="already resister" />
           </Form.Group>
           <p>{error}</p>
+          <button onClick={resetPassword} className='bg-success border-0 pb-2 text-white'>Forget Password?</button>
+          <br></br>
           <Button  variant="primary" type="submit">
             {resistered?"LogIn":"Resister"}
           </Button>
