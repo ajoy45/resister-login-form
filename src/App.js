@@ -12,17 +12,26 @@ function App() {
   const[email,setEmail]=useState('');
   const[password,setPassword]=useState('');
   const[error,setError]=useState('');
+  const[success,setSuccess]=useState('');
   const[resistered,setRestired]=useState(false);
-
+  // resistration successful message
+  const resistrationSuccess=()=>{
+    const message=alert('successfuly resistered');
+    setSuccess(message)
+  }
+  // email handel
   const handelEmailBlur=event=>{
     setEmail(event.target.value)
   }
+  // password hamdel
   const handelPasswordBlur=event=>{
     setPassword(event.target.value)
   }
+  // handel check resister
   const handelResistered=event=>{
     setRestired(event.target.checked)
   }
+  // submit the form
   const handelSumitForm=event=>{
     const form = event.currentTarget;
     event.preventDefault();
@@ -30,7 +39,7 @@ function App() {
       event.stopPropagation();
        return;
     }
-   
+  //  test password 
     if(!/(?=.*[0-9])/.test(password)){
       setError('please type at least one number');
       return;
@@ -57,6 +66,7 @@ function App() {
       setEmail('');
       setPassword('');
       emailVerification();
+      resistrationSuccess();
     })
     .catch(error=>{
        setError(error.message)
@@ -66,17 +76,20 @@ function App() {
   event.preventDefault();
 
   }
+  // verification by email
   const emailVerification=()=>{
     sendEmailVerification(auth.currentUser)
     .then(()=>{
       console.log('email sent')
     })
   }
+  // reset password
 const resetPassword=()=>{
   sendPasswordResetEmail(auth, email)
   .then(()=>{
     console.log("reset password email send")
   })
+  
 
 }
   return (
@@ -98,6 +111,7 @@ const resetPassword=()=>{
             <Form.Check className='text-white fs-4' onChange={handelResistered} type="checkbox" label="already resister" />
           </Form.Group>
           <p>{error}</p>
+          <p className='text-white fs-3'>{success}</p>
           <button onClick={resetPassword} className='bg-success border-0 pb-2 text-white'>Forget Password?</button>
           <br></br>
           <Button  variant="primary" type="submit">
