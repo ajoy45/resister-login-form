@@ -1,4 +1,4 @@
-# RESISTER AND LOGIN live link:https://astonishing-pudding-6bc391.netlify.app/
+# RESISTER AND LOGIN live link:https://zingy-swan-7fbf56.netlify.app/
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
